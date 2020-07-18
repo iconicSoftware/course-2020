@@ -1,24 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
-// services
-import { getNew } from '../../Services/newService';
-
-const Home = ({topic}) => {
-
-    const [articulos, setArticulos] = useState([]);
-    const [totalRegister, setTotalRegister] = useState(0);
-
-    useEffect(() => {
-        getNew(topic)
-            .then(res => {
-                setArticulos(res.data.articles);
-                setTotalRegister(res.data.totalResults);
-                console.log(res);
-            })
-            .catch(err => {
-                console.log(err);
-            })
-    }, []);
+const Home = ({articulos, totalRegister}) => {
 
     return (
         <div>

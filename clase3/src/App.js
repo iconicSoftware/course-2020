@@ -19,7 +19,6 @@ function App() {
           <Switch>
             <Route exact path='/'>
                 <Header/>
-                <Home topic={"programing"} />
             </Route>
             <Route exact path='/header'>
                 {/* <Header colorBack={"red"}
