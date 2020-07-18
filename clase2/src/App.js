@@ -1,5 +1,6 @@
 import React from 'react';
 
+// IMPORTAN LOS COMPONENTS
 import UserDetails from './DidMount-DidUpdate';
 import Ecma from './Ecma';
 import Example from './getSnapshotBeforeUpdate';

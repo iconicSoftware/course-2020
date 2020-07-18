@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 class UserDetails extends Component {
+
   state = {
     user: {},
     isFetching: false
