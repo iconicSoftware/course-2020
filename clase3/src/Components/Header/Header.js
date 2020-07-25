@@ -10,6 +10,8 @@ const Header = () => {
 
     const [articulos, setArticulos] = useState([]);
     const [totalRegister, setTotalRegister] = useState(0);
+
+    
     const [topic, setTopic] = useState("bitcoins");
     const [isFetching, setIsFetching] = useState(true);
 
@@ -24,6 +26,17 @@ const Header = () => {
             })
     }, [isFetching]);
 
+    const handleNavBar = (tema) => {
+        getNew(tema)
+            .then(res => {
+                setArticulos(res.data.articles);
+                setTotalRegister(res.data.totalResults);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
     return (
         <Fragment>
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -35,23 +48,31 @@ const Header = () => {
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="#a">Football <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="#a" onClick={() => handleNavBar('Android')}>Android <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#a">Programing</a>
+                            <a class="nav-link" href="#a" onClick={() => handleNavBar('JavaScript')}>JavaScript</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#a" onClick={() => handleNavBar('Bitcoins')}>Bitcoins</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#a" onClick={() => handleNavBar('Dolar')}>Dolar</a>
                         </li>
                     </ul>
-                    <form class="form-inline my-2 my-lg-0">
+                    <div class="form-inline my-2 my-lg-0">
+
                         <input class="form-control mr-sm-2"
                             type="search" placeholder="Search"
                             aria-label="Search"
                             onChange={(e) => setTopic(e.target.value)} />
+
                         <button class="btn btn-outline-primary my-2 my-sm-0"
                             type="submit"
                             onClick={() => setIsFetching(!isFetching)}>
                             Search
                     </button>
-                    </form>
+                    </div>
                 </div>
             </nav>
             <Home
