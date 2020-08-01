@@ -1,13 +1,15 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 import ItemCandidate from './ItemCandidate';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus} from '@fortawesome/free-solid-svg-icons'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 import { withRouter } from 'react-router-dom';
 
-const Candidates = ({history}) => {
+import { getCandidates, setCandidates } from '../../Services/customerService';
+
+const Candidates = ({ history }) => {
 
     let candidates = [
         {
@@ -30,20 +32,27 @@ const Candidates = ({history}) => {
         }
     ]
 
+    useEffect(() => {
+        
+    },[]);
+
     return (
         <div className="mt-2">
 
             <nav aria-label="breadcrumb">
                 <ol className="breadcrumb">
-                    <li className="breadcrumb-item">Candidates 
+                    <li className="breadcrumb-item">Candidates
                     </li>
                 </ol>
             </nav>
 
-            <button className="btn btn-success"
+            <div className="text-right">
+                <button className="btn btn-success m-1"
                     onClick={() => history.push('/add-candidate')}>
-                            <FontAwesomeIcon icon={faPlus}/> Add
-            </button>
+                    <FontAwesomeIcon icon={faPlus} /> New Candidate
+                </button>
+            </div>
+
 
             <table className="table">
                 <thead className="thead-dark">
@@ -58,7 +67,7 @@ const Candidates = ({history}) => {
                 </thead>
                 <tbody>
                     {candidates.map((candidato, index) => {
-                        return <ItemCandidate key={index} candidate={candidato}/>
+                        return <ItemCandidate key={index} candidate={candidato} />
                     })}
                 </tbody>
             </table>

@@ -3,7 +3,9 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faTrash} from '@fortawesome/free-solid-svg-icons'
 
-const ItemCandidate = ({candidate}) => {
+import { withRouter } from 'react-router-dom';
+
+const ItemCandidate = ({candidate, history}) => {
     return (
         <tr>
             <th scope="row"></th>
@@ -12,11 +14,12 @@ const ItemCandidate = ({candidate}) => {
             <td>{candidate.mail}</td>
             <td>{candidate.level}</td>
             <td>
-                <button className="btn btn-outline-warning mr-1"><FontAwesomeIcon icon={faEdit}/> Edit</button>
+                <button className="btn btn-outline-warning mr-1" 
+                    onClick={() => history.push('/edit-candidate/1',{candidate:candidate})}><FontAwesomeIcon icon={faEdit}/> Edit</button>
                 <button className="btn btn-outline-danger"><FontAwesomeIcon icon={faTrash}/> Delete</button>
             </td>
         </tr>
     );
 }
 
-export default ItemCandidate;
+export default withRouter(ItemCandidate);

@@ -9,6 +9,7 @@ import Skills from './Components/Skills/Skills';
 
 // routing
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import EditCandidate from './Components/Candidates/EditCandidate';
 
 
 function App() {
@@ -26,6 +27,10 @@ function App() {
 
             <Route exact path='/add-candidate'>
               <AddCandidate/>
+            </Route>
+
+            <Route exact path='/edit-candidate/:id'>
+              <EditCandidate/>
             </Route>
 
 
