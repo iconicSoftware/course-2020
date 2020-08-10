@@ -5,7 +5,30 @@ import { faEdit, faTrash} from '@fortawesome/free-solid-svg-icons'
 
 import { withRouter } from 'react-router-dom';
 
-const ItemCandidate = ({candidate, history}) => {
+import Swal from 'sweetalert2';
+
+const ItemCandidate = ({candidate, history, setIsLoad}) => {
+
+    const btnEliminarMarca = (id) => {
+        Swal.fire({
+            title: 'Estas seguro de eliminar?',
+            text: "Una marca eliminada no se puede recuperar!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, Eliminar!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                // consulta a la api para eliminar
+                // service para eliminar un elemento
+                console.log('Objeto eliminado');
+                setIsLoad(false);
+            }
+        })
+    }
+
     return (
         <tr>
             <th scope="row"></th>
@@ -16,7 +39,10 @@ const ItemCandidate = ({candidate, history}) => {
             <td>
                 <button className="btn btn-outline-warning mr-1" 
                     onClick={() => history.push('/edit-candidate/1',{candidate:candidate})}><FontAwesomeIcon icon={faEdit}/> Edit</button>
-                <button className="btn btn-outline-danger"><FontAwesomeIcon icon={faTrash}/> Delete</button>
+                <button className="btn btn-outline-danger"
+                    onClick={() => btnEliminarMarca(candidate.id)}>
+                    <FontAwesomeIcon icon={faTrash}/> Delete
+                </button>
             </td>
         </tr>
     );

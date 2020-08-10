@@ -5,6 +5,10 @@ import { faArrowAltCircleLeft, faCartPlus } from '@fortawesome/free-solid-svg-ic
 
 import { withRouter } from 'react-router-dom';
 
+import {setCandidates} from '../../Services/customerService';
+
+import Swal from 'sweetalert2';
+
 const AddCandidate = ({ history }) => {
 
     let skills = ['node js', 'react', 'angular']
@@ -46,6 +50,23 @@ const AddCandidate = ({ history }) => {
         }
         
         // services
+        setCandidates({...candidateNew})
+            .then(res => {
+                console.log(res);
+                Swal.fire({
+                    title: "the candidate was created",
+                    icon: "info",
+                    timer: 2000
+                })
+            })
+            .catch(error => {
+                console.log(error);
+                Swal.fire({
+                    title: "the candidate was created",
+                    icon: "error",
+                    timer: 2000
+                })
+            });
 
         console.log(candidateNew);
 

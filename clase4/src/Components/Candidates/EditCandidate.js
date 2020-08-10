@@ -1,27 +1,49 @@
 import React, {useRef} from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowAltCircleLeft, faCartPlus } from '@fortawesome/free-solid-svg-icons'
+import { faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons'
 
 import { withRouter } from 'react-router-dom';
+
+import { editCandidates } from '../../Services/customerService';
+
+import Swal from 'sweetalert2';
 
 // props
 const EditCandidate = ({ history, location }) => {
 
     const candidate = location.state.candidate;
+    console.log(candidate);
 
     let firstnameRef = useRef('');
     let lastnameRef = useRef('');
+    let mailRef = useRef('');
+    let levelRef = useRef('');
 
     const submitCandidate = (e) => {
         e.preventDefault();
        
         let candidateEdit = {
+            id: candidate.id,
             firstname: firstnameRef.current.value,
-            lastname: lastnameRef.current.value
+            lastname: lastnameRef.current.value,
+            mail: mailRef.current.value,
+            level: levelRef.current.value,
+            skills: candidate.skills
         }
 
-        console.log(candidateEdit);
+        editCandidates({...candidateEdit})
+            .then(res => {
+                console.log(res);
+                Swal.fire({
+                    title: "the candidate was updated",
+                    icon: "info",
+                    timer: 2000
+                })
+            })
+            .catch(err => {
+                console.log(err);
+            })
 
     }
 
@@ -40,7 +62,7 @@ const EditCandidate = ({ history, location }) => {
                 </button>
             </div>
 
-            <div className="border border-black m-2 p-2">
+            <form className="border border-black m-2 p-2" onSubmit={submitCandidate}>
                 <div className="form-row">
                     <div className="form-group col-md-6">
                         <label htmlFor="inputNombre">FirstName</label>
@@ -79,6 +101,7 @@ const EditCandidate = ({ history, location }) => {
                                 name="mail"
                                 defaultValue={candidate.mail}
                                 className="form-control"
+                                ref={mailRef}
                             />
                         </div>
                     </div>
@@ -91,18 +114,18 @@ const EditCandidate = ({ history, location }) => {
                                 name="level"
                                 className="form-control"
                                 defaultValue={candidate.level}
+                                ref={levelRef}
                             />
                         </div>
                     </div>
                 </div>
                 
                 <div className="form text-center">
-                    <button className="btn btn-outline-info"
-                        onClick={(e) => submitCandidate(e)}>
+                    <button className="btn btn-outline-info">
                         Edit Customer
                     </button>
                 </div>
-            </div>
+            </form>
 
         </div>
             );

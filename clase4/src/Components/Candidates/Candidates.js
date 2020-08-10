@@ -7,34 +7,42 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 import { withRouter } from 'react-router-dom';
 
-import { getCandidates, setCandidates } from '../../Services/customerService';
+// services
+import { getCandidates } from '../../Services/customerService';
 
 const Candidates = ({ history }) => {
 
-    let candidates = [
-        {
-            firstname: 'agustin',
-            lastname: 'decima',
-            mail: 'agudecima@gmail.com',
-            level: 'Ssr'
-        },
-        {
-            firstname: 'luciano',
-            lastname: 'decima',
-            mail: 'lucho@gmail.com',
-            level: 'Trainee'
-        },
-        {
-            firstname: 'pepe',
-            lastname: 'saenz',
-            mail: 'pp@gmail.com',
-            level: 'Junior'
-        }
-    ]
+    // let candidates = [
+    //     {
+    //         firstname: 'agustin',
+    //         lastname: 'decima',
+    //         mail: 'agudecima@gmail.com',
+    //         level: 'Ssr'
+    //     },
+    //     {
+    //         firstname: 'luciano',
+    //         lastname: 'decima',
+    //         mail: 'lucho@gmail.com',
+    //         level: 'Trainee'
+    //     },
+    //     {
+    //         firstname: 'pepe',
+    //         lastname: 'saenz',
+    //         mail: 'pp@gmail.com',
+    //         level: 'Junior'
+    //     }
+    // ]
 
+    const [candidates, setCandidates] = useState([]);
+    const [isLoad, setIsLoad] = useState(true);
+    
     useEffect(() => {
-        
-    },[]);
+        getCandidates()
+            .then(data => {
+                console.log(data.data.candidates);
+                setCandidates(data.data.candidates);
+            })
+    },[isLoad]);
 
     return (
         <div className="mt-2">
@@ -67,7 +75,7 @@ const Candidates = ({ history }) => {
                 </thead>
                 <tbody>
                     {candidates.map((candidato, index) => {
-                        return <ItemCandidate key={index} candidate={candidato} />
+                        return <ItemCandidate key={index} candidate={candidato} setIsLoad={setIsLoad} />
                     })}
                 </tbody>
             </table>
