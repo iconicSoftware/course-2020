@@ -3,6 +3,7 @@ package com.iconic.billing.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.iconic.billing.entities.Article;
@@ -32,6 +33,11 @@ public class ArticleService implements IArticleService {
 	@Override
 	public void deleteArticleById(Long id) {
 		articleDao.deleteById(id);
+	}
+
+	@Override
+	public Page<Article> findAllPage(org.springframework.data.domain.Pageable page) {
+		return articleDao.findAll(page);
 	}
 
 }

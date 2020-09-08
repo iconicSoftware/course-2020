@@ -18,6 +18,11 @@ public class ClientId implements Serializable {
 	public ClientId() {
 		super();
 	}
+	
+	public ClientId(People people) {
+		super();
+		this.people = people;
+	}
 
 	public People getPeople() {
 		return people;

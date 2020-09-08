@@ -1,6 +1,7 @@
 package com.iconic.billing.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,6 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "articulos")
@@ -30,10 +34,12 @@ public class Article implements Serializable {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "brand_id", nullable = false)
+	@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 	private Brand brand;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "article_id")
+	@JsonIgnore
 	private List<BarCode> barcodes;
 	
 	
@@ -41,6 +47,7 @@ public class Article implements Serializable {
 	
 	public Article(String name, double costo) {
 		super();
+		this.barcodes = new ArrayList<BarCode>();
 		this.name = name;
 		this.costo = costo;
 	}

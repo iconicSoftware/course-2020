@@ -2,6 +2,7 @@ package com.iconic.billing.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,6 +21,7 @@ public class People implements Serializable {
 	
 	private String nombre;
 	
+	@Column(unique = true)
 	private long dni;
 	
 	private String mail;
